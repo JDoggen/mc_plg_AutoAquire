@@ -1,0 +1,39 @@
+name: AutoAquirePlugin
+version: ${project.version}
+main: com.backslide999.autoaquire.AutoAquirePlugin
+api-version: 1.13
+authors: [Backslide999]
+description: Used for auto aquiring materials upon mining
+
+commands:
+
+  autoaquire:
+    description: Enables or disables AutoAquirePlugin
+    aliases: [aa, aquire]
+    permission: autoaquire.enable
+    permission-message: You do not have permission to use that command!
+    usage: §9/autoaquire help
+
+  autonotify:
+    description: Enables or disables AutoAquirePlugin notifications
+    aliases: [an, anotify]
+    permission: autoaquire.notifications
+    permission-message: You do not have permission to use that command!
+    usage: §9/autonotify help
+
+  permissions:
+
+    autoaquire.*:
+      description: Allows autoaquire commands
+      default: op
+      children:
+        autoaquire.enable: true
+        autoaquire.notification: true
+
+    autoaquire.enable:
+      description: Allows autoaquire enabling
+      default: op
+
+    autoaquire.notification:
+      description: Allows autoaquire notifications
+      default: op
