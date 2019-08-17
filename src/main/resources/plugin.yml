@@ -1,5 +1,5 @@
 name: AutoAquirePlugin
-version: ${project.version}
+version: 0.2
 main: com.backslide999.autoaquire.AutoAquirePlugin
 api-version: 1.13
 authors: [Backslide999]

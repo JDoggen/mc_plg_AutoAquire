@@ -53,6 +53,7 @@ public class onItemSpawn implements Listener {
         event.setCancelled(succesfull);
         if(PlayerDetails.instance().hasNotificationsEnabled(player) && !succesfull){
             player.sendMessage(ChatColor.RED + "Your inventory is full!");
+            PlayerDetails.instance().removeAutoNotificationsEnabledTemporary(player);
         }
     }
 }

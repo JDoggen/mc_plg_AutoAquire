@@ -5,10 +5,11 @@ import com.backslide999.autoaquire.commands.executors.Notifications;
 import com.backslide999.autoaquire.events.onBlockBreak;
 import com.backslide999.autoaquire.events.onItemSpawn;
 import com.backslide999.autoaquire.events.onPlayerLogin;
-import com.backslide999.autoaquire.runnables.AddAllPlayers;
+import com.backslide999.autoaquire.runnables.AddAllPlayersToNotificationsList;
 import com.backslide999.autoaquire.runnables.MinedBlockClearer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -32,7 +33,9 @@ public final class AutoAquirePlugin extends JavaPlugin {
 
         // Register Scheduled Methods
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new MinedBlockClearer(), 20, 20);
-        Bukkit.getScheduler().scheduleSyncDelayedTask(this, new AddAllPlayers());
+        Bukkit.getScheduler().scheduleSyncDelayedTask(this, new AddAllPlayersToNotificationsList());
+
+        PlayerDetails.instance().setPlugin(this);
 
     }
 

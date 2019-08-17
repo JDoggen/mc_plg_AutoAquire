@@ -1,4 +1,4 @@
-Manifest-Version: 1.0
+Manifest-Version: 0.2
 Class-Path: com.backslide999.autoaquire.AutoAquirePlugin
-Main-Class: AutoAquire
+Main-Class: AutoAquirePlugin
 

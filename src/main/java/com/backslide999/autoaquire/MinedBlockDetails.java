@@ -2,10 +2,7 @@ package com.backslide999.autoaquire;
 
 import com.backslide999.autoaquire.containers.MinedBlock;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Logger;
 
 public class MinedBlockDetails {
 

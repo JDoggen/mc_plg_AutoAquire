@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.logging.Logger;
 
-public class AddAllPlayers implements Runnable{
+public class AddAllPlayersToNotificationsList implements Runnable{
 
     @Override
     public void run() {
