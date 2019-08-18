@@ -22,11 +22,13 @@ public class PlayerDetails {
 
     private CopyOnWriteArrayList<Player> autoAquirePlayers;
     private CopyOnWriteArrayList<Player> autoNotificationsPlayers;
+    private CopyOnWriteArrayList<Player> autoFurnacePlayers;
 
 
     private PlayerDetails(){
         this.autoAquirePlayers = new CopyOnWriteArrayList<Player>();
         this.autoNotificationsPlayers = new CopyOnWriteArrayList<Player>();
+        this.autoFurnacePlayers = new CopyOnWriteArrayList<Player>();
     }
 
     public void setPlugin(Plugin plugin){
@@ -57,6 +59,22 @@ public class PlayerDetails {
         Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, new AddPlayerToNotificationsList(player), 40);
         return this.autoNotificationsPlayers.remove(player);
     }
+
+    public CopyOnWriteArrayList<Player> getAutoFurnacePlayers() {
+        return this.autoFurnacePlayers;
+    }
+    public boolean hasAutoFurnaceEnabled(Player player) {
+        return this.autoFurnacePlayers.contains(player);
+    }
+    public boolean addAutoFurnaceEnabled(Player player){
+        return this.autoFurnacePlayers.add(player);
+    }
+    public boolean removeAutoFurnaceEnabled(Player player){
+        return this.autoFurnacePlayers.remove(player);
+    }
+
+
+
 
 
 }

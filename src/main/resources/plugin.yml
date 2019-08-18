@@ -10,16 +10,23 @@ commands:
   autoaquire:
     description: Enables or disables AutoAquirePlugin
     aliases: [aa, aquire]
-    permission: autoaquire.enable
-    permission-message: You do not have permission to use that command!
+    permission: autoaquire.autoaquire
+    permission-message: §cYou do not have permission to use that command!
     usage: §9/autoaquire help
 
   autonotify:
     description: Enables or disables AutoAquirePlugin notifications
     aliases: [an, anotify]
     permission: autoaquire.notifications
-    permission-message: You do not have permission to use that command!
-    usage: §9/autonotify help
+    permission-message: §cYou do not have permission to use that command!
+    usage: §9/autoaquire help
+
+  autofurnace:
+    description: Enables or disables AutoFurnace
+    aliases: [af, afurnace]
+    permission: autoaquire.autofurnace
+    permission-message: §cYou do not have the permission to use that command!
+    usage: §9/autoaquire help
 
   permissions:
 
@@ -27,13 +34,18 @@ commands:
       description: Allows autoaquire commands
       default: op
       children:
-        autoaquire.enable: true
+        autoaquire.autoaquire: true
         autoaquire.notification: true
+        autoaquire.autofurnace: true
 
-    autoaquire.enable:
+    autoaquire.autoaquire:
       description: Allows autoaquire enabling
       default: op
 
     autoaquire.notification:
       description: Allows autoaquire notifications
       default: op
+
+    autoaquire.autofurnace:
+    description: Allows autofurnca
+    default: op

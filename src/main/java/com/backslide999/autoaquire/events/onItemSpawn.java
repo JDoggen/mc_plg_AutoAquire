@@ -5,6 +5,8 @@ import com.backslide999.autoaquire.PlayerDetails;
 import com.backslide999.autoaquire.containers.MinedBlock;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -43,17 +45,41 @@ public class onItemSpawn implements Listener {
         if(blockDetails == null)
             return;
 
+
+
+
         //Block is mined by a used with AutoAquire on.
         Player player = blockDetails.getPlayer();
         Item item = event.getEntity();
-        HashMap<Integer, ItemStack> map = player.getInventory().addItem(item.getItemStack());
 
-        boolean succesfull = map.isEmpty();
-        //Map returns items not given to player
-        event.setCancelled(succesfull);
-        if(PlayerDetails.instance().hasNotificationsEnabled(player) && !succesfull){
-            player.sendMessage(ChatColor.RED + "Your inventory is full!");
-            PlayerDetails.instance().removeAutoNotificationsEnabledTemporary(player);
+        //Change Itemstack if user has autofurnace enabled
+        if(PlayerDetails.instance().hasAutoFurnaceEnabled(player)){
+            ItemStack itemStack = item.getItemStack();
+            switch(itemStack.getType().toString()){
+                case "IRON_ORE": itemStack.setType(Material.IRON_INGOT);
+                    break;
+                case "GOLD_ORE": itemStack.setType(Material.GOLD_INGOT);
+                    break;
+                default: break;
+            }
+        }
+
+        if(PlayerDetails.instance().hasAutoAquireEnabled(player)) {
+            HashMap<Integer, ItemStack> map = player.getInventory().addItem(item.getItemStack());
+
+            //Map returns items not given to player
+            boolean succesfull = map.isEmpty();
+
+
+            if (succesfull) {
+                event.setCancelled(true);
+                player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.1f, 1);
+            }
+
+            if (PlayerDetails.instance().hasNotificationsEnabled(player) && !succesfull) {
+                player.sendMessage(ChatColor.RED + "Your inventory is full!");
+                PlayerDetails.instance().removeAutoNotificationsEnabledTemporary(player);
+            }
         }
     }
 }

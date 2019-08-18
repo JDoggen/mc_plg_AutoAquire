@@ -1,6 +1,7 @@
 package com.backslide999.autoaquire;
 
 import com.backslide999.autoaquire.commands.executors.AutoAquire;
+import com.backslide999.autoaquire.commands.executors.AutoFurnace;
 import com.backslide999.autoaquire.commands.executors.Notifications;
 import com.backslide999.autoaquire.events.onBlockBreak;
 import com.backslide999.autoaquire.events.onItemSpawn;
@@ -22,8 +23,9 @@ public final class AutoAquirePlugin extends JavaPlugin {
 
         // Register Commands
         logger.info("Registering Commands.");
-        this.getCommand("AutoAquire").setExecutor((CommandExecutor)new AutoAquire(this));
-        this.getCommand("AutoNotify").setExecutor((CommandExecutor)new Notifications(this));
+        this.getCommand("AutoAquire").setExecutor(new AutoAquire(this));
+        this.getCommand("AutoFurnace").setExecutor(new AutoFurnace(this));
+        this.getCommand("AutoNotify").setExecutor(new Notifications(this));
 
         // Register Events
         logger.info("Registering Events.");
