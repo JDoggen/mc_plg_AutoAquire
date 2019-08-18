@@ -1,5 +1,5 @@
 name: AutoAquirePlugin
-version: 0.2
+version: 0.3
 main: com.backslide999.autoaquire.AutoAquirePlugin
 api-version: 1.13
 authors: [Backslide999]
@@ -28,24 +28,24 @@ commands:
     permission-message: §cYou do not have the permission to use that command!
     usage: §9/autoaquire help
 
-  permissions:
+permissions:
 
-    autoaquire.*:
-      description: Allows autoaquire commands
-      default: op
-      children:
-        autoaquire.autoaquire: true
-        autoaquire.notification: true
-        autoaquire.autofurnace: true
+  autoaquire.*:
+    description: Allows autoaquire commands
+    default: op
+    children:
+      autoaquire.autoaquire: true
+      autoaquire.notification: true
+      autoaquire.autofurnace: true
 
-    autoaquire.autoaquire:
-      description: Allows autoaquire enabling
-      default: op
+  autoaquire.autoaquire:
+    description: Allows autoaquire enabling
+    default: op
 
-    autoaquire.notification:
-      description: Allows autoaquire notifications
-      default: op
+  autoaquire.notification:
+    description: Allows autoaquire notifications
+    default: op
 
-    autoaquire.autofurnace:
+  autoaquire.autofurnace:
     description: Allows autofurnca
     default: op

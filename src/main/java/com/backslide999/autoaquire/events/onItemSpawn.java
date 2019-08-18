@@ -60,6 +60,8 @@ public class onItemSpawn implements Listener {
                     break;
                 case "GOLD_ORE": itemStack.setType(Material.GOLD_INGOT);
                     break;
+                case "COBBLESTONE": itemStack.setType(Material.STONE);
+                    break;
                 default: break;
             }
         }
