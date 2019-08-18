@@ -24,7 +24,7 @@ public class onBlockBreak implements Listener {
 
         //Only store events from players that either have autoaquire or autofurnce enabled
         if(!PlayerDetails.instance().hasAutoAquireEnabled(player)
-                && !PlayerDetails.instance().hasAutoFurnaceEnabled(player))
+                && !PlayerDetails.instance().hasAutoSmeltEnabled(player))
             return;
 
         Block block = event.getBlock();

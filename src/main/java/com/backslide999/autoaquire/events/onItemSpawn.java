@@ -53,7 +53,7 @@ public class onItemSpawn implements Listener {
         Item item = event.getEntity();
 
         //Change Itemstack if user has autofurnace enabled
-        if(PlayerDetails.instance().hasAutoFurnaceEnabled(player)){
+        if(PlayerDetails.instance().hasAutoSmeltEnabled(player)){
             ItemStack itemStack = item.getItemStack();
             switch(itemStack.getType().toString()){
                 case "IRON_ORE": itemStack.setType(Material.IRON_INGOT);

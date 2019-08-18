@@ -21,10 +21,10 @@ commands:
     permission-message: §cYou do not have permission to use that command!
     usage: §9/autoaquire help
 
-  autofurnace:
-    description: Enables or disables AutoFurnace
-    aliases: [af, afurnace]
-    permission: autoaquire.autofurnace
+  autosmelt:
+    description: Enables or disables AutoSmelt
+    aliases: [as, asmelt]
+    permission: autoaquire.autosmelt
     permission-message: §cYou do not have the permission to use that command!
     usage: §9/autoaquire help
 
@@ -36,7 +36,7 @@ permissions:
     children:
       autoaquire.autoaquire: true
       autoaquire.notification: true
-      autoaquire.autofurnace: true
+      autoaquire.autosmelt: true
 
   autoaquire.autoaquire:
     description: Allows autoaquire enabling
@@ -46,6 +46,6 @@ permissions:
     description: Allows autoaquire notifications
     default: op
 
-  autoaquire.autofurnace:
-    description: Allows autofurnca
+  autoaquire.autosmelt:
+    description: Allows autosmelt
     default: op

@@ -6,10 +6,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class AutoFurnace implements CommandExecutor {
+public class AutoSmelt implements CommandExecutor {
 
     private AutoAquirePlugin plugin;
-    public AutoFurnace(AutoAquirePlugin plugin){
+    public AutoSmelt(AutoAquirePlugin plugin){
         this.plugin = plugin;
     }
 
@@ -22,11 +22,11 @@ public class AutoFurnace implements CommandExecutor {
                     break;
                 }
                 case "on": {
-                    new AutoFurnaceOn(sender, args);
+                    new AutoSmeltOn(sender, args);
                     break;
                 }
                 case "off": {
-                    new AutoFurnaceOff(sender, args);
+                    new AutoSmeltOff(sender, args);
                     break;
                 }
                 default: {
@@ -35,7 +35,7 @@ public class AutoFurnace implements CommandExecutor {
                 }
             }
         } else{
-            new AutoFurnaceToggle(sender, args);
+            new AutoSmeltToggle(sender, args);
         }
         return true;
     }

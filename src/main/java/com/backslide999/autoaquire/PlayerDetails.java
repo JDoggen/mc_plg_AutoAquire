@@ -22,13 +22,13 @@ public class PlayerDetails {
 
     private CopyOnWriteArrayList<Player> autoAquirePlayers;
     private CopyOnWriteArrayList<Player> autoNotificationsPlayers;
-    private CopyOnWriteArrayList<Player> autoFurnacePlayers;
+    private CopyOnWriteArrayList<Player> autoSmeltPlayers;
 
 
     private PlayerDetails(){
         this.autoAquirePlayers = new CopyOnWriteArrayList<Player>();
         this.autoNotificationsPlayers = new CopyOnWriteArrayList<Player>();
-        this.autoFurnacePlayers = new CopyOnWriteArrayList<Player>();
+        this.autoSmeltPlayers = new CopyOnWriteArrayList<Player>();
     }
 
     public void setPlugin(Plugin plugin){
@@ -60,17 +60,17 @@ public class PlayerDetails {
         return this.autoNotificationsPlayers.remove(player);
     }
 
-    public CopyOnWriteArrayList<Player> getAutoFurnacePlayers() {
-        return this.autoFurnacePlayers;
+    public CopyOnWriteArrayList<Player> getAutoSmeltPlayers() {
+        return this.autoSmeltPlayers;
     }
-    public boolean hasAutoFurnaceEnabled(Player player) {
-        return this.autoFurnacePlayers.contains(player);
+    public boolean hasAutoSmeltEnabled(Player player) {
+        return this.autoSmeltPlayers.contains(player);
     }
-    public boolean addAutoFurnaceEnabled(Player player){
-        return this.autoFurnacePlayers.add(player);
+    public boolean addAutoSmeltEnabled(Player player){
+        return this.autoSmeltPlayers.add(player);
     }
-    public boolean removeAutoFurnaceEnabled(Player player){
-        return this.autoFurnacePlayers.remove(player);
+    public boolean removeAutoSmeltEnabled(Player player){
+        return this.autoSmeltPlayers.remove(player);
     }
 
 
