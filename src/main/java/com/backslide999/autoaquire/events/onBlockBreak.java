@@ -20,12 +20,19 @@ public class onBlockBreak implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
-
-
+de
         //Only store events from players that either have autoaquire or autofurnce enabled
         if(!PlayerDetails.instance().hasAutoAquireEnabled(player)
                 && !PlayerDetails.instance().hasAutoSmeltEnabled(player))
             return;
+
+        //Player might have lost permission once enabled
+        if(!player.hasPermission("autoaquire.autoaquire") && !player.hasPermission("autoaquire.autosmelt")){
+            PlayerDetails.instance().removeAutoSmeltEnabled(player);
+            PlayerDetails.instance().removeAutoAquireEnable(player);
+            return;
+        }
+
 
         Block block = event.getBlock();
         Location loc = block.getLocation();

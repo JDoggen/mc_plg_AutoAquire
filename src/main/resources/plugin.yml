@@ -1,5 +1,5 @@
 name: AutoAquirePlugin
-version: 0.3
+version: 0.4
 main: com.backslide999.autoaquire.AutoAquirePlugin
 api-version: 1.13
 authors: [Backslide999]
@@ -49,3 +49,7 @@ permissions:
   autoaquire.autosmelt:
     description: Allows autosmelt
     default: op
+    children:
+    autoaquire.autosmelt.fortune:
+      description: Allows fortune on mining gold- and iron ores
+      default: op

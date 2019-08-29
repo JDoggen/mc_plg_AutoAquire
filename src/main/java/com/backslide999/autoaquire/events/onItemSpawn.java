@@ -1,5 +1,7 @@
 package com.backslide999.autoaquire.events;
 
+import com.backslide999.autoaquire.AutoAquirePlugin;
+import com.backslide999.autoaquire.Constants;
 import com.backslide999.autoaquire.MinedBlockDetails;
 import com.backslide999.autoaquire.PlayerDetails;
 import com.backslide999.autoaquire.containers.MinedBlock;
@@ -7,6 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,11 +18,20 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import java.util.logging.Logger;
 
 public class onItemSpawn implements Listener {
+
+    AutoAquirePlugin plugin = null;
+
+    public onItemSpawn(AutoAquirePlugin plugin){
+        this.plugin = plugin;
+    }
 
     @EventHandler
     public void onItemSpawn(ItemSpawnEvent event) {
@@ -45,9 +57,6 @@ public class onItemSpawn implements Listener {
         if(blockDetails == null)
             return;
 
-
-
-
         //Block is mined by a used with AutoAquire on.
         Player player = blockDetails.getPlayer();
         Item item = event.getEntity();
@@ -56,11 +65,22 @@ public class onItemSpawn implements Listener {
         if(PlayerDetails.instance().hasAutoSmeltEnabled(player)){
             ItemStack itemStack = item.getItemStack();
             switch(itemStack.getType().toString()){
-                case "IRON_ORE": itemStack.setType(Material.IRON_INGOT);
+                case "IRON_ORE":
+                    itemStack.setType(Material.IRON_INGOT);
+                    System.out.print("Player has permissions: ");
+                    System.out.println(player.hasPermission("autoaquire.autosmelt.fortune"));
+                    if(player.hasPermission("autoaquire.autosmelt.fortune")){
+                        itemStack.setAmount(calculateFortuneAmount(Material.IRON_INGOT, itemStack.getAmount(), player));
+                    }
                     break;
-                case "GOLD_ORE": itemStack.setType(Material.GOLD_INGOT);
+                case "GOLD_ORE":
+                    itemStack.setType(Material.GOLD_INGOT);
+                    if(player.hasPermission("autoaquire.autosmelt.fortune")){
+                        itemStack.setAmount(calculateFortuneAmount(Material.GOLD_INGOT, itemStack.getAmount(), player));
+                    }
                     break;
-                case "COBBLESTONE": itemStack.setType(Material.STONE);
+                case "COBBLESTONE":
+                    itemStack.setType(Material.STONE);
                     break;
                 default: break;
             }
@@ -83,5 +103,66 @@ public class onItemSpawn implements Listener {
                 PlayerDetails.instance().removeAutoNotificationsEnabledTemporary(player);
             }
         }
+    }
+
+    private int calculateFortuneAmount(final Material material, final int defaultAmount, final Player player){
+        if(defaultAmount != 1){
+            //Amount dropped is not mined
+            return defaultAmount;
+        }
+
+        int fortuneLevel = this.getFortuneLevel(player);
+        if(fortuneLevel == 0){
+            return 1;
+        } else{
+            int baseChance = this.plugin.fetchConfigInteger(Constants.PATH_FORTUNE + "."
+                    + material.toString() + "." + fortuneLevel + ".base");
+            int maxValue = this.plugin.fetchConfigInteger(Constants.PATH_FORTUNE + "."
+                    + material.toString() + "." + fortuneLevel + ".max");
+
+            Random random = new Random();
+            if(random.nextInt(100) <= baseChance){
+                //If base drop, return 1
+                return 1;
+            } else{
+                //Else, calculate random integer from 2 - maxValue
+                 return random.nextInt(maxValue - 2) + 2;
+            }
+        }
+    }
+
+    private int getFortuneLevel(final Player player){
+        int fortuneLevel = 0;
+        Map<Enchantment, Integer> enchantments = null;
+
+        ItemStack mainHand = player.getInventory().getItemInMainHand();
+        ItemStack offHand = player.getInventory().getItemInOffHand();
+        boolean mainHandPickaxe = false;
+        boolean offHandPickaxe = false;
+
+        //Get enchantments from tool in Main Hand, if this is a pickaxe
+        if(mainHand != null) {
+            mainHandPickaxe = mainHand.getType().toString().toLowerCase().contains("pickaxe");
+            if(mainHandPickaxe) {
+                enchantments = mainHand.getEnchantments();
+            }
+        }
+
+        //Get enchantments from tool in Off Hand, if this is a pickaxe and main hand is not a pickaxe
+        if(offHand != null && !mainHandPickaxe) {
+            offHandPickaxe = offHand.getType().toString().toLowerCase().contains("pickaxe");
+            if(offHandPickaxe) {
+                enchantments = offHand.getEnchantments();
+            }
+        }
+
+        if(enchantments != null){
+            try {
+                fortuneLevel = enchantments.get(Enchantment.LOOT_BONUS_BLOCKS);
+            } catch(NullPointerException e){
+                fortuneLevel = 0;
+            }
+        }
+        return fortuneLevel;
     }
 }

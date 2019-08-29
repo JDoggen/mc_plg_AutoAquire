@@ -9,6 +9,8 @@ import com.backslide999.autoaquire.events.onPlayerLogin;
 import com.backslide999.autoaquire.runnables.AddAllPlayersToNotificationsList;
 import com.backslide999.autoaquire.runnables.MinedBlockClearer;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.FileConfigurationOptions;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -16,8 +18,14 @@ import java.util.logging.Logger;
 public final class AutoAquirePlugin extends JavaPlugin {
 
     public final Logger logger = Logger.getLogger("Minecraft");
+
     @Override
     public void onEnable() {
+
+        // Read config file
+        logger.info("Reading Config File.");
+        FileConfigurationOptions config = getConfig().options().copyDefaults(true);
+        saveConfig();
 
         // Register Commands
         logger.info("Registering Commands.");
@@ -28,7 +36,7 @@ public final class AutoAquirePlugin extends JavaPlugin {
         // Register Events
         logger.info("Registering Events.");
         this.getServer().getPluginManager().registerEvents(new onBlockBreak(), this);
-        this.getServer().getPluginManager().registerEvents(new onItemSpawn(), this);
+        this.getServer().getPluginManager().registerEvents(new onItemSpawn(this), this);
         this.getServer().getPluginManager().registerEvents(new onPlayerLogin(), this);
 
         // Register Scheduled Methods
@@ -43,4 +51,21 @@ public final class AutoAquirePlugin extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic;
     }
+
+    public Boolean fetchConfigBoolean (final String path){
+        return getConfig().getBoolean(path);
+    }
+
+    public Integer fetchConfigInteger (final String path){
+        return getConfig().getInt(path);
+    }
+
+    public Object fetchConfigObject (final String path){
+        return getConfig().get(path);
+    }
+
+    public String fetchConfigString (final String path){
+        return getConfig().getString(path);
+    }
+
 }

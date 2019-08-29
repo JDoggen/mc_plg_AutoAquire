@@ -1,0 +1,22 @@
+autosmelt:
+  fortune:
+    IRON_INGOT:
+      1:
+        base: 66
+        max : 2
+      2:
+        base: 50
+        max : 3
+      3:
+        base: 40
+        max : 4
+    GOLD_INGOT:
+      1:
+        base: 66
+        max : 2
+      2:
+        base: 50
+        max : 3
+      3:
+        base: 40
+        max : 4
