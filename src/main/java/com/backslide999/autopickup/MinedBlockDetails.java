@@ -1,6 +1,6 @@
-package com.backslide999.autoaquire;
+package com.backslide999.autopickup;
 
-import com.backslide999.autoaquire.containers.MinedBlock;
+import com.backslide999.autopickup.containers.MinedBlock;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 

@@ -1,6 +1,6 @@
-package com.backslide999.autoaquire.commands;
+package com.backslide999.autopickup.commands;
 
-import com.backslide999.autoaquire.PlayerDetails;
+import com.backslide999.autopickup.PlayerDetails;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -14,7 +14,7 @@ public class AutoNotificationsOff {
                 user.sendMessage(ChatColor.BLUE + "Notifications already disabled!");
             } else{
                 PlayerDetails.instance().removeAutoNotificationsEnabled(user);
-                user.sendMessage(ChatColor.BLUE + "Disabled AutoAquire!");
+                user.sendMessage(ChatColor.BLUE + "Disabled AutoPickup!");
             }
         }
     }

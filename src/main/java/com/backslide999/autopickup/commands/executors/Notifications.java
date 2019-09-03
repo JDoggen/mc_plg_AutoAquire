@@ -1,16 +1,16 @@
-package com.backslide999.autoaquire.commands.executors;
+package com.backslide999.autopickup.commands.executors;
 
-import com.backslide999.autoaquire.AutoAquirePlugin;
-import com.backslide999.autoaquire.commands.*;
+import com.backslide999.autopickup.AutoPickupPlugin;
+import com.backslide999.autopickup.commands.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class Notifications implements CommandExecutor {
 
-    private AutoAquirePlugin plugin;
+    private AutoPickupPlugin plugin;
 
-    public Notifications(AutoAquirePlugin plugin){
+    public Notifications(AutoPickupPlugin plugin){
         this.plugin = plugin;
     }
 
@@ -19,7 +19,7 @@ public class Notifications implements CommandExecutor {
         if(args.length > 0){
             switch(args[0].toLowerCase()){
                 case "help": {
-                    new AutoAquireHelp(sender, args);
+                    new AutoPickupHelp(sender, args);
                     break;
                 }
                 case "on": {
@@ -31,7 +31,7 @@ public class Notifications implements CommandExecutor {
                     break;
                 }
                 default: {
-                    new AutoAquireHelp(sender, args);
+                    new AutoPickupHelp(sender, args);
                     break;
                 }
             }

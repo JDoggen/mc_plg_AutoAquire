@@ -1,6 +1,6 @@
-package com.backslide999.autoaquire.runnables;
+package com.backslide999.autopickup.runnables;
 
-import com.backslide999.autoaquire.PlayerDetails;
+import com.backslide999.autopickup.PlayerDetails;
 import org.bukkit.entity.Player;
 
 public class AddPlayerToNotificationsList implements Runnable{

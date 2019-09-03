@@ -1,55 +1,55 @@
-name: AutoAquirePlugin
-version: 0.4
-main: com.backslide999.autoaquire.AutoAquirePlugin
+name: AutoPickupPlugin
+version: 0.6
+main: com.backslide999.autopickup.AutoPickupPlugin
 api-version: 1.13
 authors: [Backslide999]
 description: Used for auto aquiring materials upon mining
 
 commands:
 
-  autoaquire:
-    description: Enables or disables AutoAquirePlugin
-    aliases: [aa, aquire]
-    permission: autoaquire.autoaquire
+  autopickup:
+    description: Enables or disables AutoPickupPlugin
+    aliases: [ap, apickup]
+    permission: autopickup.autopickup
     permission-message: §cYou do not have permission to use that command!
-    usage: §9/autoaquire help
+    usage: §9/autopickup help
 
   autonotify:
-    description: Enables or disables AutoAquirePlugin notifications
+    description: Enables or disables AutoPickupPlugin notifications
     aliases: [an, anotify]
-    permission: autoaquire.notifications
+    permission: autopickup.notifications
     permission-message: §cYou do not have permission to use that command!
-    usage: §9/autoaquire help
+    usage: §9/autopickup help
 
   autosmelt:
     description: Enables or disables AutoSmelt
     aliases: [as, asmelt]
-    permission: autoaquire.autosmelt
+    permission: autopickup.autosmelt
     permission-message: §cYou do not have the permission to use that command!
-    usage: §9/autoaquire help
+    usage: §9/autopickup help
 
 permissions:
 
-  autoaquire.*:
-    description: Allows autoaquire commands
+  autopickup.*:
+    description: Allows autopickup commands
     default: op
     children:
-      autoaquire.autoaquire: true
-      autoaquire.notification: true
-      autoaquire.autosmelt: true
+      autopickup.autopickup: true
+      autopickup.notification: true
+      autopickup.autosmelt: true
 
-  autoaquire.autoaquire:
-    description: Allows autoaquire enabling
+  autopickup.autopickup:
+    description: Allows autopickup enabling
     default: op
 
-  autoaquire.notification:
-    description: Allows autoaquire notifications
+  autopickup.notification:
+    description: Allows autopickup notifications
     default: op
 
-  autoaquire.autosmelt:
+  autopickup.autosmelt:
     description: Allows autosmelt
     default: op
     children:
-    autoaquire.autosmelt.fortune:
+    autopickup.autosmelt.fortune:
       description: Allows fortune on mining gold- and iron ores
       default: op

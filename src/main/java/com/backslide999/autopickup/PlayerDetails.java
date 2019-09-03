@@ -1,12 +1,10 @@
-package com.backslide999.autoaquire;
+package com.backslide999.autopickup;
 
-import com.backslide999.autoaquire.runnables.AddPlayerToNotificationsList;
+import com.backslide999.autopickup.runnables.AddPlayerToNotificationsList;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class PlayerDetails {
@@ -20,13 +18,13 @@ public class PlayerDetails {
         return _instance;
     }
 
-    private CopyOnWriteArrayList<Player> autoAquirePlayers;
+    private CopyOnWriteArrayList<Player> autoPickupPlayers;
     private CopyOnWriteArrayList<Player> autoNotificationsPlayers;
     private CopyOnWriteArrayList<Player> autoSmeltPlayers;
 
 
     private PlayerDetails(){
-        this.autoAquirePlayers = new CopyOnWriteArrayList<Player>();
+        this.autoPickupPlayers = new CopyOnWriteArrayList<Player>();
         this.autoNotificationsPlayers = new CopyOnWriteArrayList<Player>();
         this.autoSmeltPlayers = new CopyOnWriteArrayList<Player>();
     }
@@ -35,16 +33,16 @@ public class PlayerDetails {
         this.plugin = plugin;
     }
 
-    public CopyOnWriteArrayList<Player> getAutoAquirePlayers(){
-        return this.autoAquirePlayers;
+    public CopyOnWriteArrayList<Player> getAutoPickupPlayers(){
+        return this.autoPickupPlayers;
     }
-    public boolean hasAutoAquireEnabled(Player player){
-        return this.autoAquirePlayers.contains(player);
+    public boolean hasAutoPickupEnabled(Player player){
+        return this.autoPickupPlayers.contains(player);
     }
-    public boolean addAutoAquireEnabled(Player player){
-        return this.autoAquirePlayers.add(player);
+    public boolean addAutoPickupEnabled(Player player){
+        return this.autoPickupPlayers.add(player);
     }
-    public boolean removeAutoAquireEnable(Player player) {return this.autoAquirePlayers.remove(player); }
+    public boolean removeAutoPickupEnable(Player player) {return this.autoPickupPlayers.remove(player); }
 
     public CopyOnWriteArrayList<Player> getAutoNotificationsPlayers(){
         return this.autoNotificationsPlayers;

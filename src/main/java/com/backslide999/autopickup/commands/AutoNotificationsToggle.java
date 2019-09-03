@@ -1,6 +1,6 @@
-package com.backslide999.autoaquire.commands;
+package com.backslide999.autopickup.commands;
 
-import com.backslide999.autoaquire.PlayerDetails;
+import com.backslide999.autopickup.PlayerDetails;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

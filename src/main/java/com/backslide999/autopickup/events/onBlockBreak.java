@@ -1,35 +1,32 @@
-package com.backslide999.autoaquire.events;
+package com.backslide999.autopickup.events;
 
-import com.backslide999.autoaquire.MinedBlockDetails;
-import com.backslide999.autoaquire.PlayerDetails;
-import com.backslide999.autoaquire.containers.MinedBlock;
+import com.backslide999.autopickup.MinedBlockDetails;
+import com.backslide999.autopickup.PlayerDetails;
+import com.backslide999.autopickup.containers.MinedBlock;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.inventory.ItemStack;
 
-import java.util.Collection;
 import java.util.Date;
-import java.util.logging.Logger;
 
 public class onBlockBreak implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
-de
-        //Only store events from players that either have autoaquire or autofurnce enabled
-        if(!PlayerDetails.instance().hasAutoAquireEnabled(player)
+
+        //Only store events from players that either have autopickup or autofurnce enabled
+        if(!PlayerDetails.instance().hasAutoPickupEnabled(player)
                 && !PlayerDetails.instance().hasAutoSmeltEnabled(player))
             return;
 
         //Player might have lost permission once enabled
-        if(!player.hasPermission("autoaquire.autoaquire") && !player.hasPermission("autoaquire.autosmelt")){
+        if(!player.hasPermission("autopickup.autopickup") && !player.hasPermission("autopickup.autosmelt")){
             PlayerDetails.instance().removeAutoSmeltEnabled(player);
-            PlayerDetails.instance().removeAutoAquireEnable(player);
+            PlayerDetails.instance().removeAutoPickupEnable(player);
             return;
         }
 

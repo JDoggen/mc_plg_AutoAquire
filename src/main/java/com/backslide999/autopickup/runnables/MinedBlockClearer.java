@@ -1,6 +1,6 @@
-package com.backslide999.autoaquire.runnables;
+package com.backslide999.autopickup.runnables;
 
-import com.backslide999.autoaquire.MinedBlockDetails;
+import com.backslide999.autopickup.MinedBlockDetails;
 
 import java.util.Date;
 

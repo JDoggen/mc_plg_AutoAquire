@@ -1,21 +1,20 @@
-package com.backslide999.autoaquire;
+package com.backslide999.autopickup;
 
-import com.backslide999.autoaquire.commands.executors.AutoAquire;
-import com.backslide999.autoaquire.commands.executors.AutoSmelt;
-import com.backslide999.autoaquire.commands.executors.Notifications;
-import com.backslide999.autoaquire.events.onBlockBreak;
-import com.backslide999.autoaquire.events.onItemSpawn;
-import com.backslide999.autoaquire.events.onPlayerLogin;
-import com.backslide999.autoaquire.runnables.AddAllPlayersToNotificationsList;
-import com.backslide999.autoaquire.runnables.MinedBlockClearer;
+import com.backslide999.autopickup.commands.executors.AutoPickup;
+import com.backslide999.autopickup.commands.executors.AutoSmelt;
+import com.backslide999.autopickup.commands.executors.Notifications;
+import com.backslide999.autopickup.events.onBlockBreak;
+import com.backslide999.autopickup.events.onItemSpawn;
+import com.backslide999.autopickup.events.onPlayerLogin;
+import com.backslide999.autopickup.runnables.AddAllPlayersToNotificationsList;
+import com.backslide999.autopickup.runnables.MinedBlockClearer;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.FileConfigurationOptions;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
 
-public final class AutoAquirePlugin extends JavaPlugin {
+public final class AutoPickupPlugin extends JavaPlugin {
 
     public final Logger logger = Logger.getLogger("Minecraft");
 
@@ -29,7 +28,7 @@ public final class AutoAquirePlugin extends JavaPlugin {
 
         // Register Commands
         logger.info("Registering Commands.");
-        this.getCommand("AutoAquire").setExecutor(new AutoAquire(this));
+        this.getCommand("AutoPickup").setExecutor(new AutoPickup(this));
         this.getCommand("AutoSmelt").setExecutor(new AutoSmelt(this));
         this.getCommand("AutoNotify").setExecutor(new Notifications(this));
 

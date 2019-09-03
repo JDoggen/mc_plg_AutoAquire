@@ -1,10 +1,10 @@
-package com.backslide999.autoaquire.events;
+package com.backslide999.autopickup.events;
 
-import com.backslide999.autoaquire.AutoAquirePlugin;
-import com.backslide999.autoaquire.Constants;
-import com.backslide999.autoaquire.MinedBlockDetails;
-import com.backslide999.autoaquire.PlayerDetails;
-import com.backslide999.autoaquire.containers.MinedBlock;
+import com.backslide999.autopickup.AutoPickupPlugin;
+import com.backslide999.autopickup.Constants;
+import com.backslide999.autopickup.MinedBlockDetails;
+import com.backslide999.autopickup.PlayerDetails;
+import com.backslide999.autopickup.containers.MinedBlock;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,22 +14,18 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.logging.Logger;
 
 public class onItemSpawn implements Listener {
 
-    AutoAquirePlugin plugin = null;
+    AutoPickupPlugin plugin = null;
 
-    public onItemSpawn(AutoAquirePlugin plugin){
+    public onItemSpawn(AutoPickupPlugin plugin){
         this.plugin = plugin;
     }
 
@@ -57,7 +53,7 @@ public class onItemSpawn implements Listener {
         if(blockDetails == null)
             return;
 
-        //Block is mined by a used with AutoAquire on.
+        //Block is mined by a used with AutoPickup on.
         Player player = blockDetails.getPlayer();
         Item item = event.getEntity();
 
@@ -68,14 +64,14 @@ public class onItemSpawn implements Listener {
                 case "IRON_ORE":
                     itemStack.setType(Material.IRON_INGOT);
                     System.out.print("Player has permissions: ");
-                    System.out.println(player.hasPermission("autoaquire.autosmelt.fortune"));
-                    if(player.hasPermission("autoaquire.autosmelt.fortune")){
+                    System.out.println(player.hasPermission("autopickup.autosmelt.fortune"));
+                    if(player.hasPermission("autopickup.autosmelt.fortune")){
                         itemStack.setAmount(calculateFortuneAmount(Material.IRON_INGOT, itemStack.getAmount(), player));
                     }
                     break;
                 case "GOLD_ORE":
                     itemStack.setType(Material.GOLD_INGOT);
-                    if(player.hasPermission("autoaquire.autosmelt.fortune")){
+                    if(player.hasPermission("autopickup.autosmelt.fortune")){
                         itemStack.setAmount(calculateFortuneAmount(Material.GOLD_INGOT, itemStack.getAmount(), player));
                     }
                     break;
@@ -86,7 +82,7 @@ public class onItemSpawn implements Listener {
             }
         }
 
-        if(PlayerDetails.instance().hasAutoAquireEnabled(player)) {
+        if(PlayerDetails.instance().hasAutoPickupEnabled(player)) {
             HashMap<Integer, ItemStack> map = player.getInventory().addItem(item.getItemStack());
 
             //Map returns items not given to player

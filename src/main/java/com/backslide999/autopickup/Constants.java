@@ -1,4 +1,4 @@
-package com.backslide999.autoaquire;
+package com.backslide999.autopickup;
 
 public class Constants {
 

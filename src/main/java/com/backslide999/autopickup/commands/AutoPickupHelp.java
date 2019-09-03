@@ -1,19 +1,17 @@
-package com.backslide999.autoaquire.commands;
+package com.backslide999.autopickup.commands;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AutoAquireHelp {
+public class AutoPickupHelp {
 
-    public AutoAquireHelp(CommandSender sender, String[] args){
+    public AutoPickupHelp(CommandSender sender, String[] args){
         List<String> messageList = new ArrayList<String>();
-        messageList.add(ChatColor.BLUE + "/aa <on|off> - Enables/Disables AutoAquire");
-        messageList.add(ChatColor.BLUE + "/aa - Toggles AutoAquire");
+        messageList.add(ChatColor.BLUE + "/aa <on|off> - Enables/Disables AutoPickup");
+        messageList.add(ChatColor.BLUE + "/aa - Toggles AutoPickup");
         messageList.add(ChatColor.BLUE + "/as <on|off> - Enables/Disables AutoSmelt");
         messageList.add(ChatColor.BLUE + "/as - Toggles AutoSmelt");
         messageList.add(ChatColor.BLUE + "/an <on|off> - Enables/Disables Notifications");
