@@ -1,5 +1,6 @@
 package com.backslide999.autopickup.commands;
 
+import com.backslide999.autopickup.AutoPickupPlugin;
 import com.backslide999.autopickup.PlayerDetails;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -12,9 +13,11 @@ public class AutoSmeltOn {
             Player user = (Player) sender;
             if(!PlayerDetails.instance().hasAutoSmeltEnabled(user)){
                 PlayerDetails.instance().addAutoSmeltEnabled(user);
-                user.sendMessage(ChatColor.BLUE + "AutoSmelt Enabled!");
+                AutoPickupPlugin.getInstance().sendPlayerInfo(user,
+                        AutoPickupPlugin.getInstance().fetchConfigString("messages.autosmelt.enabled"));
             } else{
-                user.sendMessage(ChatColor.BLUE + "AutoSmelt already enabled!");
+                AutoPickupPlugin.getInstance().sendPlayerInfo(user,
+                        AutoPickupPlugin.getInstance().fetchConfigString("messages.autosmelt.already_enabled"));
             }
         }
     }

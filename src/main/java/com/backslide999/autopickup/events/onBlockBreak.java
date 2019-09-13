@@ -1,8 +1,10 @@
 package com.backslide999.autopickup.events;
 
+import com.backslide999.autopickup.AutoPickupPlugin;
 import com.backslide999.autopickup.MinedBlockDetails;
 import com.backslide999.autopickup.PlayerDetails;
 import com.backslide999.autopickup.containers.MinedBlock;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -11,8 +13,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 import java.util.Date;
+import java.util.logging.Logger;
 
 public class onBlockBreak implements Listener {
+
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {

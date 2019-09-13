@@ -5,18 +5,18 @@ import com.backslide999.autopickup.PlayerDetails;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class AutoNotificationsOff {
+public class AutoBlockOn {
 
-    public AutoNotificationsOff(CommandSender sender, String[] args){
+    public AutoBlockOn(CommandSender sender){
         if(sender instanceof Player){
             Player player = (Player) sender;
-            if(!PlayerDetails.instance().hasNotificationsEnabled(player)){
+            if(!PlayerDetails.instance().hasAutoBlockEnabled(player)){
+                PlayerDetails.instance().addAutoBlockEnabled(player);
                 AutoPickupPlugin.getInstance().sendPlayerInfo(player,
-                        AutoPickupPlugin.getInstance().fetchConfigString("messages.notifications.already_disabled"));
+                        AutoPickupPlugin.getInstance().fetchConfigString("messages.autoblock.enabled"));
             } else{
-                PlayerDetails.instance().removeNotificationsEnabled(player);
                 AutoPickupPlugin.getInstance().sendPlayerInfo(player,
-                        AutoPickupPlugin.getInstance().fetchConfigString("messages.notifications.disabled"));
+                        AutoPickupPlugin.getInstance().fetchConfigString("messages.autoblock.already_enabled")) ;
             }
         }
     }

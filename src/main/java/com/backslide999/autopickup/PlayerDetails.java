@@ -21,12 +21,14 @@ public class PlayerDetails {
     private CopyOnWriteArrayList<Player> autoPickupPlayers;
     private CopyOnWriteArrayList<Player> autoNotificationsPlayers;
     private CopyOnWriteArrayList<Player> autoSmeltPlayers;
+    private CopyOnWriteArrayList<Player> autoBlockPlayers;
 
 
     private PlayerDetails(){
-        this.autoPickupPlayers = new CopyOnWriteArrayList<Player>();
-        this.autoNotificationsPlayers = new CopyOnWriteArrayList<Player>();
-        this.autoSmeltPlayers = new CopyOnWriteArrayList<Player>();
+        this.autoPickupPlayers = new CopyOnWriteArrayList<>();
+        this.autoNotificationsPlayers = new CopyOnWriteArrayList<>();
+        this.autoSmeltPlayers = new CopyOnWriteArrayList<>();
+        this.autoBlockPlayers = new CopyOnWriteArrayList<>();
     }
 
     public void setPlugin(Plugin plugin){
@@ -44,7 +46,7 @@ public class PlayerDetails {
     }
     public boolean removeAutoPickupEnable(Player player) {return this.autoPickupPlayers.remove(player); }
 
-    public CopyOnWriteArrayList<Player> getAutoNotificationsPlayers(){
+    public CopyOnWriteArrayList<Player> getNotificationsPlayers(){
         return this.autoNotificationsPlayers;
     }
     public boolean hasNotificationsEnabled(Player player){
@@ -52,9 +54,11 @@ public class PlayerDetails {
     }
     public boolean addNotificationsEnabled(Player player){return this.autoNotificationsPlayers.add(player);
     }
-    public boolean removeAutoNotificationsEnabled(Player player) {return this.autoNotificationsPlayers.remove(player); }
-    public boolean removeAutoNotificationsEnabledTemporary(Player player){
-        Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, new AddPlayerToNotificationsList(player), 40);
+    public boolean removeNotificationsEnabled(Player player) {
+        return this.autoNotificationsPlayers.remove(player);
+    }
+    public boolean removeNotificationsEnabledTemporary(Player player){
+        Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, new AddPlayerToNotificationsList(player), 5);
         return this.autoNotificationsPlayers.remove(player);
     }
 
@@ -70,6 +74,11 @@ public class PlayerDetails {
     public boolean removeAutoSmeltEnabled(Player player){
         return this.autoSmeltPlayers.remove(player);
     }
+
+    public CopyOnWriteArrayList<Player> getAutoBlockPlayers() { return this.autoBlockPlayers;}
+    public boolean hasAutoBlockEnabled(Player player) { return this.autoBlockPlayers.contains(player);}
+    public boolean addAutoBlockEnabled(Player player) { return this.autoBlockPlayers.add(player);}
+    public boolean removeAutoBlockEnabled(Player player){ return this.autoBlockPlayers.remove(player);}
 
 
 

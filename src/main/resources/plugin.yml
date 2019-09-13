@@ -1,5 +1,5 @@
 name: AutoPickupPlugin
-version: 0.6
+version: 1.1
 main: com.backslide999.autopickup.AutoPickupPlugin
 api-version: 1.13
 authors: [Backslide999]
@@ -28,6 +28,13 @@ commands:
     permission-message: §cYou do not have the permission to use that command!
     usage: §9/autopickup help
 
+  autoblock:
+    description: Automatically creates blocks from ingots
+    aliases: [ab, ablock]
+    permission: autopickup.autoblock
+    permission-message: §cYou do not have permission to use that command!
+    usage: §9/autopickup help
+
 permissions:
 
   autopickup.*:
@@ -37,6 +44,7 @@ permissions:
       autopickup.autopickup: true
       autopickup.notification: true
       autopickup.autosmelt: true
+      autopickup.autoblock.*: true
 
   autopickup.autopickup:
     description: Allows autopickup enabling
@@ -50,6 +58,17 @@ permissions:
     description: Allows autosmelt
     default: op
     children:
-    autopickup.autosmelt.fortune:
-      description: Allows fortune on mining gold- and iron ores
-      default: op
+      autopickup.autosmelt.fortune:
+        description: Allows fortune on mining gold- and iron ores
+        default: op
+
+  autopickup.autoblock:
+    description: Allows autoblock commands
+    default: op
+    children:
+      autopickup.autoblock.enable:
+        description: Allows enabling of autoblock
+        default: op
+      autopickup.autoblock.all:
+        description: Allows the autoblock all command
+        default: op

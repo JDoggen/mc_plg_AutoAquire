@@ -1,5 +1,6 @@
 package com.backslide999.autopickup.commands;
 
+import com.backslide999.autopickup.AutoPickupPlugin;
 import com.backslide999.autopickup.PlayerDetails;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -12,10 +13,12 @@ public class AutoPickupOff {
         if(sender instanceof Player){
             Player user = (Player) sender;
             if(!PlayerDetails.instance().hasAutoPickupEnabled(user)){
-                user.sendMessage(ChatColor.BLUE + "AutoPickup already disabled!");
+                AutoPickupPlugin.getInstance().sendPlayerInfo(sender,
+                        AutoPickupPlugin.getInstance().fetchConfigString("messages.autopickup.already_disabled"));
             } else{
                 PlayerDetails.instance().removeAutoPickupEnable(user);
-                user.sendMessage(ChatColor.BLUE + "Disabled AutoPickup!");
+                AutoPickupPlugin.getInstance().sendPlayerInfo(sender,
+                        AutoPickupPlugin.getInstance().fetchConfigString("messages.autopickup.disabled"));
             }
         }
     }

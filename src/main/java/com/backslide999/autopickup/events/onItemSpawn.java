@@ -1,11 +1,7 @@
 package com.backslide999.autopickup.events;
 
-import com.backslide999.autopickup.AutoPickupPlugin;
-import com.backslide999.autopickup.Constants;
-import com.backslide999.autopickup.MinedBlockDetails;
-import com.backslide999.autopickup.PlayerDetails;
+import com.backslide999.autopickup.*;
 import com.backslide999.autopickup.containers.MinedBlock;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -15,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ItemSpawnEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -60,34 +57,45 @@ public class onItemSpawn implements Listener {
         //Change Itemstack if user has autofurnace enabled
         if(PlayerDetails.instance().hasAutoSmeltEnabled(player)){
             ItemStack itemStack = item.getItemStack();
-            switch(itemStack.getType().toString()){
-                case "IRON_ORE":
+            switch(itemStack.getType()){
+                case IRON_ORE:
                     itemStack.setType(Material.IRON_INGOT);
-                    System.out.print("Player has permissions: ");
-                    System.out.println(player.hasPermission("autopickup.autosmelt.fortune"));
                     if(player.hasPermission("autopickup.autosmelt.fortune")){
                         itemStack.setAmount(calculateFortuneAmount(Material.IRON_INGOT, itemStack.getAmount(), player));
                     }
                     break;
-                case "GOLD_ORE":
+                case GOLD_ORE:
                     itemStack.setType(Material.GOLD_INGOT);
                     if(player.hasPermission("autopickup.autosmelt.fortune")){
                         itemStack.setAmount(calculateFortuneAmount(Material.GOLD_INGOT, itemStack.getAmount(), player));
                     }
                     break;
-                case "COBBLESTONE":
+                case COBBLESTONE:
                     itemStack.setType(Material.STONE);
+                    break;
+                case SAND:
+                case RED_SAND:
+                    itemStack.setType(Material.GLASS);
+                    break;
+                case WET_SPONGE:
+                    itemStack.setType(Material.SPONGE);
+                    break;
+                case CLAY:
+                    itemStack.setType(Material.TERRACOTTA);
+                    break;
+                case NETHERRACK:
+                    itemStack.setType(Material.NETHER_BRICK);
                     break;
                 default: break;
             }
         }
 
+        //If player has autopickup enabled, give item to user
         if(PlayerDetails.instance().hasAutoPickupEnabled(player)) {
             HashMap<Integer, ItemStack> map = player.getInventory().addItem(item.getItemStack());
 
             //Map returns items not given to player
             boolean succesfull = map.isEmpty();
-
 
             if (succesfull) {
                 event.setCancelled(true);
@@ -95,8 +103,39 @@ public class onItemSpawn implements Listener {
             }
 
             if (PlayerDetails.instance().hasNotificationsEnabled(player) && !succesfull) {
-                player.sendMessage(ChatColor.RED + "Your inventory is full!");
-                PlayerDetails.instance().removeAutoNotificationsEnabledTemporary(player);
+                AutoPickupPlugin.getInstance().sendPlayerWarning(player,
+                        AutoPickupPlugin.getInstance().fetchConfigString("messages.notifications.full_inventory"));
+                PlayerDetails.instance().removeNotificationsEnabledTemporary(player);
+            }
+
+            if(PlayerDetails.instance().hasAutoBlockEnabled(player)) {
+                HashMap<Material, Material> materials = Constants.craftableMap;
+                Material ore = item.getItemStack().getType();
+                Material block = materials.get(ore);
+                if (block != null) {
+                    int craftAmount = 9;
+                    if (ore == Material.QUARTZ) craftAmount = 4;
+                    ItemStack craftItems = new ItemStack(ore, craftAmount);
+                    ItemStack craftedBlock = new ItemStack(block, 1);
+                    if (player.getInventory().contains(ore, craftAmount) && Utility.hasSpace(player, craftedBlock)) {
+                        HashMap<Integer, ItemStack> notRemoved = player.getInventory().removeItem(craftItems);
+
+                        // Double check if items removed successfully
+                        if (notRemoved.isEmpty()) {
+
+                            HashMap<Integer, ItemStack> notGranted = player.getInventory().addItem(craftedBlock);
+                            // Double check if crafted block is added successfully, else grant raw ores back
+                            if (!notGranted.isEmpty()) {
+                                ItemStack removedOres = new ItemStack(ore, craftAmount);
+                                player.getInventory().addItem(removedOres);
+                            }
+                        } else {
+                            int removedQuantity = craftAmount - notRemoved.get(ore).getAmount();
+                            ItemStack removedItemStack = new ItemStack(ore, removedQuantity);
+                            player.getInventory().addItem(removedItemStack);
+                        }
+                    }
+                }
             }
         }
     }

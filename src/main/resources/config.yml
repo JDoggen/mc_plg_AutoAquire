@@ -20,3 +20,43 @@ autosmelt:
       3:
         base: 40
         max : 4
+
+notifications:
+  default_on: true
+
+messages:
+  prefix: true
+  autopickup:
+    enabled: AutoPickup enabled!
+    disabled: AutoPickup disabled!
+    already_enabled: AutoPickup already enabled!
+    already_disabled: AutoPickup already disabled!
+  autosmelt:
+    enabled: AutoSmelt enabled!
+    disabled: AutoSmelt disabled!
+    already_enabled: AutoSmelt already enabled!
+    already_disabled: AutoSmelt already disabled!
+  notifications:
+    enabled: Notifications enabled!
+    disabled: Notifications disabled!
+    already_enabled: Notifications already enabled!
+    already_disabled: Notifications already disabled!
+    full_inventory: Your inventory is full!
+  autoblock:
+    enabled: AutoBlock enabled!
+    disabled: AutoBlock disabled!
+    already_enabled: AutoBlock already enabled!
+    already_disabled: AutoBlock already disabled!
+  help:
+    autopickup_help:
+      - /ap <on|off> - Enables/Disables AutoPickup
+      - /ap - Toggles AutoPickup
+      - /as <on|off> - Enables/Disables AutoSmelt
+      - /as - Toggles AutoSmelt
+      - /an <on|off> - Enables/Disables Notifications
+      - /an - Toggles Notifications
+      - /ab <on|off> - Enables/Disables AutoBlock
+      - /ab - Toggles AutoBlock
+      - /ab all - AutoBlocks all suitable ingots in inventory
+  unauthorized: You do not have permission to use that command!
+

@@ -6,18 +6,19 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class AutoNotificationsOn {
+public class AutoBlockToggle {
 
-    public AutoNotificationsOn(CommandSender sender, String[] args){
+    public AutoBlockToggle(CommandSender sender){
         if(sender instanceof Player){
             Player player = (Player) sender;
-            if(!PlayerDetails.instance().hasNotificationsEnabled(player)){
-                PlayerDetails.instance().addNotificationsEnabled(player);
+            if(!PlayerDetails.instance().hasAutoBlockEnabled(player)){
+                PlayerDetails.instance().addAutoBlockEnabled(player);
                 AutoPickupPlugin.getInstance().sendPlayerInfo(player,
-                        AutoPickupPlugin.getInstance().fetchConfigString("messages.notifications.enabled"));
+                        AutoPickupPlugin.getInstance().fetchConfigString("messages.autoblock.enabled"));
             } else{
+                PlayerDetails.instance().removeAutoBlockEnabled(player);
                 AutoPickupPlugin.getInstance().sendPlayerInfo(player,
-                        AutoPickupPlugin.getInstance().fetchConfigString("messages.notifications.already_enabled"));
+                        AutoPickupPlugin.getInstance().fetchConfigString("messages.autoblock.disabled"));
             }
         }
     }
