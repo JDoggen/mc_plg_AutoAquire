@@ -15,11 +15,9 @@ public class AutoBlockAll {
 
     public AutoBlockAll(Player player){
         if(player.hasPermission("autopickup.autoblock.all:")){
-            HashMap<Material, Material> materials = Constants.craftableMap;
 
-            materials.forEach( (ore, block) -> {
-                int craftAmount = 9;
-                if(ore == Material.QUARTZ) craftAmount = 4;
+            Constants.craftableMap.forEach( (ore, block) -> {
+                int craftAmount = Constants.craftableAmountMap.get(ore);
                 ItemStack craftItems = new ItemStack(ore, craftAmount);
                 ItemStack craftedBlock = new ItemStack(block, 1);
                 while(player.getInventory().contains(ore, craftAmount) && Utility.hasSpace(player, craftedBlock)) {

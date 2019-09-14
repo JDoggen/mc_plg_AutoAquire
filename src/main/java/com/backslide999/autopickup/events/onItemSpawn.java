@@ -99,7 +99,8 @@ public class onItemSpawn implements Listener {
 
             if (succesfull) {
                 event.setCancelled(true);
-                player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.1f, 1);
+                if(Constants.soundEnabled)
+                    player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.1f, 1);
             }
 
             if (PlayerDetails.instance().hasNotificationsEnabled(player) && !succesfull) {
@@ -109,12 +110,10 @@ public class onItemSpawn implements Listener {
             }
 
             if(PlayerDetails.instance().hasAutoBlockEnabled(player)) {
-                HashMap<Material, Material> materials = Constants.craftableMap;
                 Material ore = item.getItemStack().getType();
-                Material block = materials.get(ore);
+                Material block = Constants.craftableMap.get(ore);
                 if (block != null) {
-                    int craftAmount = 9;
-                    if (ore == Material.QUARTZ) craftAmount = 4;
+                    int craftAmount = Constants.craftableAmountMap.get(ore);
                     ItemStack craftItems = new ItemStack(ore, craftAmount);
                     ItemStack craftedBlock = new ItemStack(block, 1);
                     if (player.getInventory().contains(ore, craftAmount) && Utility.hasSpace(player, craftedBlock)) {
@@ -150,9 +149,9 @@ public class onItemSpawn implements Listener {
         if(fortuneLevel == 0){
             return 1;
         } else{
-            int baseChance = this.plugin.fetchConfigInteger(Constants.PATH_FORTUNE + "."
+            int baseChance = this.plugin.fetchConfigInteger("autosmelt.fortune."
                     + material.toString() + "." + fortuneLevel + ".base");
-            int maxValue = this.plugin.fetchConfigInteger(Constants.PATH_FORTUNE + "."
+            int maxValue = this.plugin.fetchConfigInteger("autosmelt.fortune."
                     + material.toString() + "." + fortuneLevel + ".max");
 
             Random random = new Random();

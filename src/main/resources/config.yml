@@ -21,6 +21,18 @@ autosmelt:
         base: 40
         max : 4
 
+autoblock:
+  craftables:
+    - COAL:COAL_BLOCK:9
+    - IRON_INGOT:IRON_BLOCK:9
+    - REDSTONE:REDSTONE_BLOCK:9
+    - GOLD_NUGGET:GOLD_INGOT:9
+    - GOLD_INGOT:GOLD_BLOCK:9
+    - LAPIS_LAZULI:LAPIS_BLOCK:9
+    - EMERAL:EMERALD_BLOCK:9
+    - DIAMOND:DIAMOND_BLOCK:9
+    - QUARTZ:QUARTZ_BOCK:4
+
 notifications:
   default_on: true
 
@@ -59,4 +71,7 @@ messages:
       - /ab - Toggles AutoBlock
       - /ab all - AutoBlocks all suitable ingots in inventory
   unauthorized: You do not have permission to use that command!
+
+sound:
+  enabled: false
 
