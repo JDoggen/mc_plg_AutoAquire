@@ -53,7 +53,6 @@ messages:
     disabled: Notifications disabled!
     already_enabled: Notifications already enabled!
     already_disabled: Notifications already disabled!
-    full_inventory: Your inventory is full!
   autoblock:
     enabled: AutoBlock enabled!
     disabled: AutoBlock disabled!
@@ -70,7 +69,11 @@ messages:
       - /ab <on|off> - Enables/Disables AutoBlock
       - /ab - Toggles AutoBlock
       - /ab all - AutoBlocks all suitable ingots in inventory
-  unauthorized: You do not have permission to use that command!
+
+  unauthorized: You do not have the permission to use that command!
+  full_inventory: Your inventory is full!
+  reloading: Reloading...
+  reloading_successfull: Reloading successfull!
 
 sound:
   enabled: false

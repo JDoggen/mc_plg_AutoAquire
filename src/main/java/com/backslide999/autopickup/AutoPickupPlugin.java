@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 public final class AutoPickupPlugin extends JavaPlugin {
 
     private static AutoPickupPlugin instance;
-    private Boolean useChatPrefix = true;
     public final Logger logger = Logger.getLogger("Minecraft");
 
     @Override
@@ -33,7 +32,7 @@ public final class AutoPickupPlugin extends JavaPlugin {
         this.logInfo("Reading Config file");
         FileConfigurationOptions config = getConfig().options().copyDefaults(true);
         saveConfig();
-        this.useChatPrefix = this.fetchConfigBoolean("messages.prefix");
+        Constants.load();
 
         // Register Commands
         this.logInfo("Registering Commands");
@@ -54,8 +53,6 @@ public final class AutoPickupPlugin extends JavaPlugin {
         if(this.fetchConfigBoolean("notifications.default_on"))
             Bukkit.getScheduler().scheduleSyncDelayedTask(this, new AddAllPlayersToNotificationsList());
 
-        PlayerDetails.instance().setPlugin(this);
-
     }
 
     @Override
@@ -63,6 +60,11 @@ public final class AutoPickupPlugin extends JavaPlugin {
         // UnRegistering Commands
         // logger.info("[AutoPickup] Unregistering Commands.");
     }
+
+    public void reload() {
+        Constants.load();
+    }
+
 
 
     public static AutoPickupPlugin getInstance(){return instance;}
@@ -93,7 +95,7 @@ public final class AutoPickupPlugin extends JavaPlugin {
 
     public void sendPlayerInfo(CommandSender sender, String message){
         String line = "";
-        if(this.useChatPrefix){
+        if(Constants.useChatPrefix){
             line = ChatColor.WHITE + "[" +
                     ChatColor.GREEN + "AutoPickup" +
                     ChatColor.WHITE + "] " +
@@ -109,7 +111,7 @@ public final class AutoPickupPlugin extends JavaPlugin {
 
     public void sendPlayerWarning(CommandSender sender, String message){
         String line = "";
-        if(this.useChatPrefix){
+        if(Constants.useChatPrefix){
             line = ChatColor.WHITE + "[" +
                     ChatColor.GREEN + "AutoPickup" +
                     ChatColor.WHITE + "] " +

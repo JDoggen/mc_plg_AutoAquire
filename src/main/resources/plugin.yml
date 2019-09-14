@@ -72,3 +72,7 @@ permissions:
       autopickup.autoblock.all:
         description: Allows the autoblock all command
         default: op
+
+  autopickup.reload:
+    description: Reloads plugin
+    default: op

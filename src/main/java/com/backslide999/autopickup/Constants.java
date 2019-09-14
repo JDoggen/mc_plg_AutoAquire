@@ -7,11 +7,14 @@ import java.util.List;
 
 public class Constants {
 
-    public final static HashMap<Material, Material> craftableMap = new HashMap<>();
-    public final static HashMap<Material, Integer> craftableAmountMap = new HashMap<>();
+    public static HashMap<Material, Material> craftableMap;
+    public static HashMap<Material, Integer> craftableAmountMap;
     public static Boolean soundEnabled;
+    public static Boolean useChatPrefix;
 
     public static void load() {
+        Constants.craftableMap = new HashMap<>();
+        Constants.craftableAmountMap = new HashMap<>();
         List<String> craftables = AutoPickupPlugin.getInstance().fetchConfigStringList("autoblock.craftables");
         for(String craftable : craftables){
             String[] data = craftable.trim().split(":");
@@ -19,6 +22,7 @@ public class Constants {
             craftableAmountMap.put(Material.valueOf(data[0]), Integer.parseInt(data[2]));
         }
 
-        soundEnabled = AutoPickupPlugin.getInstance().fetchConfigBoolean("sound.enabled");
+        Constants.soundEnabled = AutoPickupPlugin.getInstance().fetchConfigBoolean("sound.enabled");
+        Constants.useChatPrefix = AutoPickupPlugin.getInstance().fetchConfigBoolean("messages.prefix");
     }
 }

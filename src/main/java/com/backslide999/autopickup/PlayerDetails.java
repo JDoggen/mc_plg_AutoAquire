@@ -10,7 +10,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class PlayerDetails {
 
     private static PlayerDetails _instance;
-    private Plugin plugin;
 
     public static PlayerDetails instance(){
         if(_instance == null)
@@ -29,10 +28,6 @@ public class PlayerDetails {
         this.autoNotificationsPlayers = new CopyOnWriteArrayList<>();
         this.autoSmeltPlayers = new CopyOnWriteArrayList<>();
         this.autoBlockPlayers = new CopyOnWriteArrayList<>();
-    }
-
-    public void setPlugin(Plugin plugin){
-        this.plugin = plugin;
     }
 
     public CopyOnWriteArrayList<Player> getAutoPickupPlayers(){
@@ -58,7 +53,8 @@ public class PlayerDetails {
         return this.autoNotificationsPlayers.remove(player);
     }
     public boolean removeNotificationsEnabledTemporary(Player player){
-        Bukkit.getScheduler().scheduleSyncDelayedTask(this.plugin, new AddPlayerToNotificationsList(player), 5);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(AutoPickupPlugin.getInstance(),
+                new AddPlayerToNotificationsList(player), 5);
         return this.autoNotificationsPlayers.remove(player);
     }
 
@@ -79,9 +75,5 @@ public class PlayerDetails {
     public boolean hasAutoBlockEnabled(Player player) { return this.autoBlockPlayers.contains(player);}
     public boolean addAutoBlockEnabled(Player player) { return this.autoBlockPlayers.add(player);}
     public boolean removeAutoBlockEnabled(Player player){ return this.autoBlockPlayers.remove(player);}
-
-
-
-
 
 }

@@ -1,10 +1,7 @@
 package com.backslide999.autopickup.commands.executors;
 
 import com.backslide999.autopickup.AutoPickupPlugin;
-import com.backslide999.autopickup.commands.AutoPickupOff;
-import com.backslide999.autopickup.commands.AutoPickupOn;
-import com.backslide999.autopickup.commands.AutoPickupToggle;
-import com.backslide999.autopickup.commands.AutoPickupHelp;
+import com.backslide999.autopickup.commands.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -31,6 +28,10 @@ public class AutoPickup implements CommandExecutor {
                 }
                 case "off": {
                     new AutoPickupOff(sender, args);
+                    break;
+                }
+                case "reload":{
+                    new AutoPickupReload(sender);
                     break;
                 }
                 default: {
