@@ -21,22 +21,11 @@ public class AutoBlockAll {
                 ItemStack craftItems = new ItemStack(ore, craftAmount);
                 ItemStack craftedBlock = new ItemStack(block, 1);
                 while(player.getInventory().contains(ore, craftAmount) && Utility.hasSpace(player, craftedBlock)) {
-                    HashMap<Integer, ItemStack> notRemoved = player.getInventory().removeItem(craftItems);
+                    if(Utility.autoblock(player, craftItems, craftedBlock, ore, craftAmount))
+                        continue;
+                    else
+                        break;
 
-                    // Double check if items removed successfully
-                    if(notRemoved.isEmpty()){
-                        HashMap<Integer, ItemStack> notGranted = player.getInventory().addItem(craftedBlock);
-                        // Double check if crafted block is added successfully, else grant raw ores back
-                        if(!notGranted.isEmpty()){
-                            ItemStack removedOres = new ItemStack(ore, craftAmount);
-                            player.getInventory().addItem(removedOres);
-                            break;
-                        }
-                    } else{
-                        int removedQuantity = craftAmount - notRemoved.get(ore).getAmount();
-                        ItemStack removedItemStack = new ItemStack(ore, removedQuantity);
-                        player.getInventory().addItem(removedItemStack);
-                    }
                 }
             });
 

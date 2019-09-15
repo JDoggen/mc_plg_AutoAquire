@@ -99,7 +99,7 @@ public class onItemSpawn implements Listener {
 
             if (succesfull) {
                 event.setCancelled(true);
-                if(Constants.soundEnabled)
+                if(AutoPickupPlugin.getInstance().fetchConfigBoolean("sound.enabled"))
                     player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.1f, 1);
             }
 
@@ -117,22 +117,7 @@ public class onItemSpawn implements Listener {
                     ItemStack craftItems = new ItemStack(ore, craftAmount);
                     ItemStack craftedBlock = new ItemStack(block, 1);
                     if (player.getInventory().contains(ore, craftAmount) && Utility.hasSpace(player, craftedBlock)) {
-                        HashMap<Integer, ItemStack> notRemoved = player.getInventory().removeItem(craftItems);
-
-                        // Double check if items removed successfully
-                        if (notRemoved.isEmpty()) {
-
-                            HashMap<Integer, ItemStack> notGranted = player.getInventory().addItem(craftedBlock);
-                            // Double check if crafted block is added successfully, else grant raw ores back
-                            if (!notGranted.isEmpty()) {
-                                ItemStack removedOres = new ItemStack(ore, craftAmount);
-                                player.getInventory().addItem(removedOres);
-                            }
-                        } else {
-                            int removedQuantity = craftAmount - notRemoved.get(ore).getAmount();
-                            ItemStack removedItemStack = new ItemStack(ore, removedQuantity);
-                            player.getInventory().addItem(removedItemStack);
-                        }
+                        Utility.autoblock(player, craftItems, craftedBlock, ore, craftAmount);
                     }
                 }
             }

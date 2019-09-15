@@ -29,9 +29,9 @@ autoblock:
     - GOLD_NUGGET:GOLD_INGOT:9
     - GOLD_INGOT:GOLD_BLOCK:9
     - LAPIS_LAZULI:LAPIS_BLOCK:9
-    - EMERAL:EMERALD_BLOCK:9
+    - EMERALD:EMERALD_BLOCK:9
     - DIAMOND:DIAMOND_BLOCK:9
-    - QUARTZ:QUARTZ_BOCK:4
+    - QUARTZ:QUARTZ_BLOCK:4
 
 notifications:
   default_on: true
@@ -73,8 +73,15 @@ messages:
   unauthorized: You do not have the permission to use that command!
   full_inventory: Your inventory is full!
   reloading: Reloading...
-  reloading_successfull: Reloading successfull!
+  reloading_unsuccessful: Reloading not successful, plugin in undetermined state. Please see logging for details!
+  reloading_successful: Reloading successful!
 
 sound:
-  enabled: false
+  enabled: true
+api:
+  placeholder:
+    enabled: true
+    messages:
+      true: "True"
+      false: "False"
 

@@ -1,19 +1,16 @@
 package com.backslide999.autopickup;
 
-import com.backslide999.autopickup.commands.executors.AutoBlock;
-import com.backslide999.autopickup.commands.executors.AutoPickup;
-import com.backslide999.autopickup.commands.executors.AutoSmelt;
-import com.backslide999.autopickup.commands.executors.Notifications;
+import com.backslide999.autopickup.commands.executors.*;
 import com.backslide999.autopickup.events.onBlockBreak;
 import com.backslide999.autopickup.events.onItemSpawn;
 import com.backslide999.autopickup.events.onPlayerLogin;
+import com.backslide999.autopickup.hooks.AutoPickupPlaceholderExpansion;
 import com.backslide999.autopickup.runnables.AddAllPlayersToNotificationsList;
 import com.backslide999.autopickup.runnables.MinedBlockClearer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfigurationOptions;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
@@ -30,9 +27,7 @@ public final class AutoPickupPlugin extends JavaPlugin {
 
         // Read config file
         this.logInfo("Reading Config file");
-        FileConfigurationOptions config = getConfig().options().copyDefaults(true);
-        saveConfig();
-        Constants.load();
+        this.reload();
 
         // Register Commands
         this.logInfo("Registering Commands");
@@ -53,6 +48,9 @@ public final class AutoPickupPlugin extends JavaPlugin {
         if(this.fetchConfigBoolean("notifications.default_on"))
             Bukkit.getScheduler().scheduleSyncDelayedTask(this, new AddAllPlayersToNotificationsList());
 
+        // Register events with different plugins
+        this.registerPlaceHolderAPI();
+
     }
 
     @Override
@@ -62,7 +60,11 @@ public final class AutoPickupPlugin extends JavaPlugin {
     }
 
     public void reload() {
+        this.reloadConfig();
+        FileConfigurationOptions config = getConfig().options().copyDefaults(true);
+        saveConfig();
         Constants.load();
+        registerPlaceHolderAPI();
     }
 
 
@@ -95,7 +97,7 @@ public final class AutoPickupPlugin extends JavaPlugin {
 
     public void sendPlayerInfo(CommandSender sender, String message){
         String line = "";
-        if(Constants.useChatPrefix){
+        if(fetchConfigBoolean("messages.prefix")){
             line = ChatColor.WHITE + "[" +
                     ChatColor.GREEN + "AutoPickup" +
                     ChatColor.WHITE + "] " +
@@ -111,7 +113,7 @@ public final class AutoPickupPlugin extends JavaPlugin {
 
     public void sendPlayerWarning(CommandSender sender, String message){
         String line = "";
-        if(Constants.useChatPrefix){
+        if(fetchConfigBoolean("messages.prefix")){
             line = ChatColor.WHITE + "[" +
                     ChatColor.GREEN + "AutoPickup" +
                     ChatColor.WHITE + "] " +
@@ -122,11 +124,32 @@ public final class AutoPickupPlugin extends JavaPlugin {
     }
 
     public void logInfo(String message){
-        this.getLogger().info("[AutoPickup] " + message);
+        this.getLogger().info(message);
     }
 
     public void logWarning(String message){
-        this.getLogger().warning("[AutoPickup] " + message);
+        this.getLogger().warning(message);
+    }
+
+    private void registerPlaceHolderAPI(){
+        try{
+            boolean enabled = this.fetchConfigBoolean("api.placeholder.enabled");
+            if(!enabled){
+                this.logInfo("Placeholder API disabled");
+                return;
+            } else{
+                this.logInfo("Registering Placeholder API");
+                if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
+                    new AutoPickupPlaceholderExpansion().register();
+                    this.logInfo("Placeholder API successfuly registered");
+                } else {
+                    this.logWarning("Could not find PlaceholderAPI. PlacehodlerAPI not registered. Please disable in config.yml");
+                    return;
+                }
+            }
+        } catch (Throwable T){
+            this.logInfo(T.getMessage());
+        }
     }
 
 }

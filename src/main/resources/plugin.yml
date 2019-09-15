@@ -2,8 +2,10 @@ name: AutoPickupPlugin
 version: 1.2
 main: com.backslide999.autopickup.AutoPickupPlugin
 api-version: 1.13
-authors: [Backslide999]
+author: Backslide999
 description: Used for auto aquiring materials upon mining
+
+softdepend: [PlaceholderAPI]
 
 commands:
 
